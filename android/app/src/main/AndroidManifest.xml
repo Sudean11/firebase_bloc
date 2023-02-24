@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.firebase_bloc">
+    package="com.firebase.list">
    <application
         android:label="firebase_bloc"
         android:name="${applicationName}"

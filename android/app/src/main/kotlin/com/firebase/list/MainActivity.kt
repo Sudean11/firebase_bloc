@@ -1,4 +1,4 @@
-package com.example.firebase_bloc
+package com.firebase.list
 
 import io.flutter.embedding.android.FlutterActivity
 
