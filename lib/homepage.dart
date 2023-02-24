@@ -15,25 +15,6 @@ class HomePage extends StatelessWidget {
     apiList = parsedList.map((e) => ApiData.fromJson(e)).toList();
   }
 
-  var items = [
-    'a',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b',
-    'b'
-  ];
-
   @override
   Widget build(BuildContext context) {
     return (Scaffold(
