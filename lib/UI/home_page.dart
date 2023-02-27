@@ -18,27 +18,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("hello"),
+        title: const Text("hello"),
       ),
       body: BlocProvider(
         create: (context) => flowerBloc,
         child: Column(children: [
-          Text("hellos"),
           BlocBuilder<FlowerBloc, FlowerState>(
             builder: (context, state) {
-              print('hello');
               if (state is FlowerLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is FlowerLoaded) {
                 return Expanded(
-                  child: ListView.builder(
-                      itemCount: state.flowerList.length,
-                      itemBuilder: (context, index) {
-                        return NewWidget(
-                          index: index,
-                          flowerList: state.flowerList,
-                        );
-                      }),
+                  child: Container(
+                    child: Expanded(
+                      child: ListView.builder(
+                          itemCount: state.flowerList.length,
+                          itemBuilder: (context, index) {
+                            return NewWidget(
+                              index: index,
+                              flowerList: state.flowerList,
+                            );
+                          }),
+                    ),
+                  ),
                 );
               } else {
                 return (Text("hello test"));
@@ -67,8 +69,9 @@ class NewWidget extends StatelessWidget {
         alignment: Alignment.center,
         child: GestureDetector(
           onTap: () {
+            BlocProvider.of<FlowerBloc>(context)
+                .add(SelectFlower(index: index));
             const snack = SnackBar(content: Text("hello"));
-            // ScaffoldMessenger.of(context).showSnackBar(snack);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -76,19 +79,23 @@ class NewWidget extends StatelessWidget {
                         firstname: flowerList[index].firstName ?? "")));
           },
           child: Card(
-            child: Row(
-              children: [
-                ClipPath(
-                  clipper: NewClipper(),
-                  child: Image.network(
-                    'https://googleflutter.com/sample_image.jpg',
-                    height: 40,
-                    width: 40,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 30, 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipOval(
+                    child: Image.network(
+                      'https://googleflutter.com/sample_image.jpg',
+                      height: 40,
+                      width: 40,
+                    ),
                   ),
-                ),
-                const Padding(padding: EdgeInsets.only(left: 20)),
-                Flexible(child: Text(flowerList[index].firstName ?? "new"))
-              ],
+                  const Padding(padding: EdgeInsets.only(left: 20)),
+                  Flexible(child: Text(flowerList[index].firstName ?? "new"))
+                ],
+              ),
             ),
           ),
         )));

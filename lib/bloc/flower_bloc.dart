@@ -9,15 +9,25 @@ part 'flower_state.dart';
 
 class FlowerBloc extends Bloc<FlowerEvent, FlowerState> {
   FlowerBloc() : super(FlowerInitial()) {
+    Flower? selectedFlower;
+    List<Flower>? flowerList;
+
     on<FlowerEvent>((event, emit) async {
-      emit(FlowerLoading());
-      final dio = Dio();
-      final response =
-          await dio.get('https://api.axiossoftwork.com/updatetable');
-      List responseList = response.data;
-      List responseMapped =
-          responseList.map((e) => Flower.fromJson(e)).toList();
-      emit(FlowerLoaded(flowerList: responseMapped));
+      if (event is fetchApi) {
+        emit(FlowerLoading());
+        final dio = Dio();
+        final response =
+            await dio.get('https://api.axiossoftwork.com/updatetable');
+        List responseList = response.data;
+        List<Flower> responseMapped =
+            responseList.map((e) => Flower.fromJson(e)).toList();
+        flowerList = responseMapped;
+        emit(FlowerLoaded(flowerList: responseMapped));
+      } else if (event is SelectFlower) {
+        selectedFlower = flowerList![event.index];
+      } else if (event is GetSelectedFlower) {
+        emit(SelectedFlower(selectedFlower: (selectedFlower ?? Flower())));
+      }
     });
   }
 }
