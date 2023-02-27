@@ -1,5 +1,5 @@
 abstract class NetworkService {
-  getValues();
+  Future<List> getValues();
 
   postValues();
 }

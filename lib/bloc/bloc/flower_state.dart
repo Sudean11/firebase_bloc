@@ -1,19 +1,19 @@
-part of 'mybloc_bloc.dart';
+part of 'flower_bloc.dart';
 
 @immutable
-abstract class NewBolcState extends Equatable {}
+abstract class FlowerState extends Equatable {}
 
-class MyblocInitial extends NewBolcState {
+class MyblocInitial extends FlowerState {
   @override
   List<Object?> get props => [];
 }
 
-class MyblocLoading extends NewBolcState {
+class MyblocLoading extends FlowerState {
   @override
   List<Object?> get props => [];
 }
 
-class MyblocLoaded extends NewBolcState {
+class MyblocLoaded extends FlowerState {
   var apiList;
   MyblocLoaded({this.apiList});
 
@@ -21,7 +21,7 @@ class MyblocLoaded extends NewBolcState {
   List<Object?> get props => [apiList];
 }
 
-class MyblocError extends NewBolcState {
+class MyblocError extends FlowerState {
   @override
   List<Object?> get props => [];
 }

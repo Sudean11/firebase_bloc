@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 List<ApiData> welcomeFromJson(String str) =>
     List<ApiData>.from(json.decode(str).map((x) => ApiData.fromJson(x)));
 
 String welcomeToJson(List<ApiData> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ApiData {
+class ApiData extends Equatable {
   ApiData({
     required this.id,
     required this.firstName,
@@ -28,4 +30,7 @@ class ApiData {
         "first_name": firstName,
         "image": image,
       };
+
+  @override
+  List<Object?> get props => [id, firstName, image];
 }

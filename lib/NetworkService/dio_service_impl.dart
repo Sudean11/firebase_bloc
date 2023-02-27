@@ -1,11 +1,10 @@
 import 'package:firebase_bloc/NetworkService/network_service.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_bloc/ApiService/api_service.dart';
-import 'package:firebase_bloc/apidata.dart';
+import 'package:firebase_bloc/Model/apidata.dart';
 
 class DioServiceImpl extends NetworkService {
   @override
-  getValues() async {
+  Future<List> getValues() async {
     final dio = Dio();
     final response = await dio.get('https://api.axiossoftwork.com/updatetable');
     final List parsedList = response.data;

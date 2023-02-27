@@ -1,19 +1,19 @@
-import 'package:dio/dio.dart';
-import 'package:firebase_bloc/apidata.dart';
+import 'package:firebase_bloc/ApiService/api_service_impl.dart';
+import 'package:firebase_bloc/Model/apidata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/bloc/mybloc_bloc.dart';
+import '../bloc/bloc/flower_bloc.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key}) {
     getValues();
     initBloc();
   }
-  MyblocBloc myblocBloc = MyblocBloc();
+  FlowerBloc flowerBloc = FlowerBloc(apiService: ApiServiceImpl());
 
   void initBloc() {
-    myblocBloc.add(ApiCallEventTrigerred());
+    flowerBloc.add(ApiCallEventTrigerred());
   }
 
   List<ApiData>? apiList;
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (BlocProvider(
-      create: (context) => myblocBloc,
+      create: (context) => flowerBloc,
       child: Scaffold(
           appBar: AppBar(
             title: const Text("hello"),
@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                   Text("hello"),
                   Text("helsadfa"),
                   Text("hewer"),
-                  BlocBuilder<MyblocBloc, NewBolcState>(
+                  BlocBuilder<FlowerBloc, FlowerState>(
                     builder: (context, state) {
                       if (state is MyblocLoading) {
                         return Text("Loading");
